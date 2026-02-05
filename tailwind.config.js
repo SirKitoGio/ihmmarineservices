@@ -5,7 +5,17 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        marine: {
+          900: '#02042B',
+          800: '#0a0e45',
+        },
+        brand: {
+          teal: '#00D4AA',
+        }
+      }
+    },
   },
   plugins: [],
 }

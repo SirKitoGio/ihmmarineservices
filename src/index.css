@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+  /* Define the Deep Navy color */
+  --color-marine-900: #02042B;
+  --color-marine-800: #0a0e45;
+
+  /* Define the Teal Brand color */
+  --color-brand-teal: #00D4AA;
+}
