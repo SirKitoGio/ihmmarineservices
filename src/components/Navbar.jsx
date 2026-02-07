@@ -50,19 +50,12 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50 font-sans">
       <div className="w-full px-4 sm:px-6 lg:px-12">
-        {/* CONTAINER HEIGHT: 
-            - Mobile: h-20 (80px) -> Perfect standard mobile size.
-            - Desktop: h-40 (160px) -> Massive, commanding authority look. 
-        */}
+    
         <div className="flex justify-between items-center h-20 md:h-45 transition-all duration-300 ease-in-out">
           
           {/* LOGO SECTION */}
           <div className="flex items-center flex-shrink-0">
             <Link to="/" onClick={scrollToTop}>
-              {/* LOGO IMAGE SIZE:
-                  - Mobile: h-14 (56px) -> Fits perfectly in 80px bar.
-                  - Desktop: h-32 (128px) -> Huge.
-              */}
               <img 
                 src="/logo.png" 
                 alt="IHM Marine Services" 
