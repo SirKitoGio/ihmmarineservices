@@ -59,7 +59,7 @@ const Navbar = () => {
               <img 
                 src="/logo.png" 
                 alt="IHM Marine Services" 
-                className="h-14 md:h-40 w-auto object-contain py-1 transition-all duration-300 ease-in-out" 
+                className="h-14 md:h-35 w-auto object-contain py-1 transition-all duration-300 ease-in-out" 
               />
             </Link>
           </div>
@@ -70,14 +70,14 @@ const Navbar = () => {
             <Link 
               to="/" 
               onClick={scrollToTop}
-              className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-2xl transition"
+              className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-1xl transition"
             >
               Home
             </Link>
             
             {/* SERVICES DROPDOWN */}
             <div className="relative group h-full flex items-center">
-              <button className="flex items-center text-marine-900 group-hover:text-brand-teal font-extrabold text-xl lg:text-2xl transition focus:outline-none">
+              <button className="flex items-center text-marine-900 group-hover:text-brand-teal font-extrabold text-xl lg:text-1xl transition focus:outline-none">
                 Services
                 <ChevronDown size={24} className="ml-2 transform group-hover:-rotate-180 transition-transform duration-200" />
               </button>
@@ -109,14 +109,14 @@ const Navbar = () => {
             <Link 
               to="/contact" 
               onClick={scrollToTop}
-              className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-2xl transition"
+              className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-1xl transition"
             >
               Contact
             </Link>
             
             <a 
               href="mailto:info@ihmmarineservices.com" 
-              className="bg-marine-900 hover:bg-marine-800 text-white px-8 py-3 lg:px-10 lg:py-4 rounded-lg font-bold text-xl lg:text-2xl transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border-2 border-marine-900"
+              className="bg-marine-900 hover:bg-marine-800 text-white px-8 py-3 lg:px-10 lg:py-4 rounded-lg font-bold text-xl lg:text-1xl transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border-2 border-marine-900"
             >
               Get a Quote
             </a>
