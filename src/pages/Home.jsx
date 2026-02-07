@@ -101,7 +101,7 @@ const Home = () => {
                 <p>In an industry as dynamic as maritime, adaptation is key. We embrace the ever-changing nature of the sector, blending <b>traditional expertise</b> with <b>cutting-edge solutions</b>.</p>
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-brand-teal mt-6">
                   <h4 className="font-bold text-marine-900 flex items-center mb-2"><Users className="h-5 w-5 text-brand-teal mr-2" /> Our Team</h4>
-                  <p className="text-sm">Backed by seasoned professionals including <b>Master Mariners, Engineers, Architects, Surveyors, Hazmat Experts, and Asbestos Consultants.</b></p>
+                  <p className="text-sm">Backed by seasoned professionals including <b>Master Mariners, Engineers, Architects, Surveyors, Hazmat Experts,</b> and <b>Asbestos Consultants.</b></p>
                 </div>
               </div>
             </div>

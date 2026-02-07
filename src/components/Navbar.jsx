@@ -14,29 +14,34 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
 
-  // DROPDOWN MENU ITEMS
+  // --- HELPER: FORCE SCROLL TO TOP ---
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsOpen(false);
+  };
+
   const servicesList = [
     { 
       name: "All Services", 
-      link: "/services", // Goes to the main list
+      link: "/services", 
       icon: <Grid size={24} />,
       desc: "View our full range of capabilities"
     },
     { 
       name: "Inventory of Hazardous Materials", 
-      link: "/services/ihm-maintenance", // Direct to Deep Dive
+      link: "/services/ihm-maintenance", 
       icon: <ClipboardCheck size={24} />,
       desc: "EU SRR & HKC Compliance"
     },
     { 
       name: "Asbestos Consultancy", 
-      link: "/services/asbestos-consultancy", // Direct to Deep Dive
+      link: "/services/asbestos-consultancy", 
       icon: <Biohazard size={24} />,
       desc: "Surveys & Removal Supervision"
     },
     { 
       name: "Class & Statutory Surveys", 
-      link: "/services/class-surveys", // Direct to Deep Dive
+      link: "/services/class-surveys", 
       icon: <Anchor size={24} />,
       desc: "Inspections & Certifications"
     }
@@ -45,20 +50,35 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50 font-sans">
       <div className="w-full px-4 sm:px-6 lg:px-12">
-        {/* HEIGHT: Huge on Desktop (h-40), Compact on Mobile (h-24) */}
-        <div className="flex justify-between items-center h-24 md:h-40">
+        {/* CONTAINER HEIGHT: 
+            - Mobile: h-20 (80px) -> Perfect standard mobile size.
+            - Desktop: h-40 (160px) -> Massive, commanding authority look. 
+        */}
+        <div className="flex justify-between items-center h-20 md:h-45 transition-all duration-300 ease-in-out">
           
-          {/* LOGO - Responsive Sizing */}
+          {/* LOGO SECTION */}
           <div className="flex items-center flex-shrink-0">
-            <Link to="/">
-              {/* Mobile: h-16 | Desktop: h-32 (Huge) */}
-              <img src="/logo.png" alt="IHM Marine Services" className="h-16 md:h-32 w-auto object-contain py-2" />
+            <Link to="/" onClick={scrollToTop}>
+              {/* LOGO IMAGE SIZE:
+                  - Mobile: h-14 (56px) -> Fits perfectly in 80px bar.
+                  - Desktop: h-32 (128px) -> Huge.
+              */}
+              <img 
+                src="/logo.png" 
+                alt="IHM Marine Services" 
+                className="h-14 md:h-40 w-auto object-contain py-1 transition-all duration-300 ease-in-out" 
+              />
             </Link>
           </div>
           
           {/* DESKTOP MENU (Hidden on Mobile) */}
-          <div className="hidden md:flex items-center space-x-10 lg:space-x-14">
-            <Link to="/" className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-2xl transition">
+          <div className="hidden md:flex items-center space-x-8 lg:space-x-14">
+            
+            <Link 
+              to="/" 
+              onClick={scrollToTop}
+              className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-2xl transition"
+            >
               Home
             </Link>
             
@@ -69,13 +89,13 @@ const Navbar = () => {
                 <ChevronDown size={24} className="ml-2 transform group-hover:-rotate-180 transition-transform duration-200" />
               </button>
               
-              {/* Dropdown Panel */}
               <div className="absolute top-28 -left-8 w-[450px] bg-white shadow-2xl rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-4 border-t-8 border-brand-teal">
                 <div className="flex flex-col">
                   {servicesList.map((service, index) => (
                     <Link 
                       key={index}
                       to={service.link} 
+                      onClick={scrollToTop} 
                       className={`flex items-start px-6 py-5 hover:bg-teal-50 transition group/item ${index !== servicesList.length - 1 ? 'border-b border-gray-100' : ''}`}
                     >
                       <div className="text-gray-400 group-hover/item:text-brand-teal mr-5 mt-1 transition-colors">
@@ -93,37 +113,44 @@ const Navbar = () => {
               </div>
             </div>
 
-            <Link to="/contact" className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-2xl transition">
+            <Link 
+              to="/contact" 
+              onClick={scrollToTop}
+              className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-2xl transition"
+            >
               Contact
             </Link>
             
             <a 
               href="mailto:info@ihmmarineservices.com" 
-              className="bg-marine-900 hover:bg-marine-800 text-white px-10 py-4 rounded-lg font-bold text-xl lg:text-2xl transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border-2 border-marine-900"
+              className="bg-marine-900 hover:bg-marine-800 text-white px-8 py-3 lg:px-10 lg:py-4 rounded-lg font-bold text-xl lg:text-2xl transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border-2 border-marine-900"
             >
               Get a Quote
             </a>
           </div>
 
-          {/* MOBILE MENU BUTTON */}
+          {/* MOBILE MENU BUTTON (Visible only on Mobile) */}
           <div className="md:hidden flex items-center">
             <button onClick={() => setIsOpen(!isOpen)} className="text-marine-900 hover:text-brand-teal p-2 focus:outline-none">
-              {isOpen ? <X size={36} /> : <Menu size={36} />}
+              {isOpen ? <X size={32} /> : <Menu size={32} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* MOBILE MENU (Optimized for Phones) */}
+      {/* MOBILE MENU DROPDOWN */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-2xl absolute w-full left-0 h-[calc(100vh-6rem)] bg-opacity-100 overflow-y-auto pb-20 z-40">
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-2xl absolute w-full left-0 h-[calc(100vh-5rem)] bg-opacity-100 overflow-y-auto pb-20 z-40">
           <div className="px-6 pt-6 pb-8 space-y-4">
             
-            <Link to="/" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-xl font-bold text-marine-900 hover:bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+            <Link 
+              to="/" 
+              onClick={scrollToTop} 
+              className="block px-4 py-4 text-xl font-bold text-marine-900 hover:bg-gray-50 rounded-lg border border-gray-100 shadow-sm"
+            >
               Home
             </Link>
 
-            {/* Mobile Dropdown Logic */}
             <div className="border border-gray-100 rounded-lg shadow-sm overflow-hidden">
               <button 
                 onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)} 
@@ -139,7 +166,7 @@ const Navbar = () => {
                     <Link 
                       key={index} 
                       to={service.link} 
-                      onClick={() => setIsOpen(false)} 
+                      onClick={scrollToTop}
                       className="flex items-center px-6 py-4 text-lg text-gray-700 hover:text-brand-teal hover:bg-teal-50 border-b border-gray-100 last:border-0"
                     >
                       <span className="text-brand-teal mr-4 opacity-80 scale-90">{service.icon}</span>
@@ -150,7 +177,11 @@ const Navbar = () => {
               )}
             </div>
 
-            <Link to="/contact" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-xl font-bold text-marine-900 hover:bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+            <Link 
+              to="/contact" 
+              onClick={scrollToTop} 
+              className="block px-4 py-4 text-xl font-bold text-marine-900 hover:bg-gray-50 rounded-lg border border-gray-100 shadow-sm"
+            >
               Contact
             </Link>
 
