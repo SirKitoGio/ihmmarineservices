@@ -5,7 +5,10 @@ import {
   ChevronDown, 
   ClipboardCheck, 
   Biohazard, 
-  Anchor 
+  Anchor,
+  Recycle,
+  Wifi,
+  Globe
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -13,21 +16,37 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
 
+  // FULL LIST OF 6 SERVICES
   const servicesList = [
     { 
       name: "Inventory of Hazardous Materials", 
-      link: "/#services",
+      link: "/services", 
       icon: <ClipboardCheck size={20} /> 
     },
     { 
       name: "Asbestos Consultancy", 
-      link: "/#services",
+      link: "/services", 
       icon: <Biohazard size={20} />
     },
     { 
       name: "Classification & Statutory Surveys", 
-      link: "/#services",
+      link: "/services", 
       icon: <Anchor size={20} />
+    },
+    { 
+      name: "Ballast Water Treatment", 
+      link: "/services", 
+      icon: <Recycle size={20} />
+    },
+    { 
+      name: "Maritime Digitalization", 
+      link: "/services", 
+      icon: <Wifi size={20} />
+    },
+    { 
+      name: "Worldwide Vessel Inspections", 
+      link: "/services", 
+      icon: <Globe size={20} />
     }
   ];
 
@@ -43,7 +62,7 @@ const Navbar = () => {
             </Link>
           </div>
           
-          {/* DESKTOP MENU - Text increased to text-xl */}
+          {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center space-x-12">
             <Link to="/" className="text-marine-900 hover:text-brand-teal font-bold text-xl transition">Home</Link>
             
@@ -54,14 +73,15 @@ const Navbar = () => {
                 <ChevronDown size={22} className="ml-1 transform group-hover:-rotate-180 transition-transform duration-200" />
               </button>
               
-              <div className="absolute top-28 -left-4 w-80 bg-white shadow-xl rounded-md py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2 border-t-4 border-brand-teal">
+              {/* Dropdown Panel */}
+              <div className="absolute top-28 -left-4 w-96 bg-white shadow-xl rounded-md py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2 border-t-4 border-brand-teal">
                 {servicesList.map((service, index) => (
                   <Link 
                     key={index}
                     to={service.link} 
-                    className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-teal transition border-b border-gray-50 last:border-0 group/item"
+                    className="flex items-center px-4 py-4 text-sm text-gray-700 hover:bg-gray-50 hover:text-brand-teal transition border-b border-gray-50 last:border-0 group/item"
                   >
-                    <span className="text-gray-400 group-hover/item:text-brand-teal mr-3 transition-colors">
+                    <span className="text-gray-400 group-hover/item:text-brand-teal mr-4 transition-colors">
                       {service.icon}
                     </span>
                     {service.name}
@@ -70,8 +90,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <a href="#certifications" className="text-marine-900 hover:text-brand-teal font-bold text-xl transition">Certifications</a>
-            <a href="#contact" className="text-marine-900 hover:text-brand-teal font-bold text-xl transition">Contact</a>
+            <Link to="/contact" className="text-marine-900 hover:text-brand-teal font-bold text-xl transition">Contact</Link>
             
             <a 
               href="mailto:info@ihmmarineservices.com" 
@@ -111,8 +130,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-            <a href="#certifications" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-xl font-medium text-marine-900 hover:bg-gray-50 rounded-md border-b border-gray-100">Certifications</a>
-            <a href="#contact" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-xl font-medium text-marine-900 hover:bg-gray-50 rounded-md border-b border-gray-100">Contact</a>
+            <Link to="/contact" onClick={() => setIsOpen(false)} className="block px-4 py-3 text-xl font-medium text-marine-900 hover:bg-gray-50 rounded-md border-b border-gray-100">Contact</Link>
             <div className="pt-4">
               <a href="mailto:info@ihmmarineservices.com" className="block w-full text-center bg-marine-900 text-white px-5 py-4 rounded-md font-bold text-xl shadow-md">Get a Quote</a>
             </div>

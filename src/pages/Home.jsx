@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   ClipboardCheck, 
   Biohazard, 
@@ -14,64 +15,75 @@ import {
 const services = [
   {
     title: "Inventory of Hazardous Materials",
+    link: "/services/ihm-maintenance",
     desc: "IHM Inspections and Managed Life Cycle Maintenance ensuring full compliance with EU SRR & HKC.",
     icon: <ClipboardCheck size={28} />,
     image: "/service-ihm.jpg"
   },
   {
     title: "Asbestos Management",
+    link: "/services/asbestos-consultancy",
     desc: "Expert consultancy, surveys, and removal supervision by certified Hazmat experts.",
     icon: <Biohazard size={28} />,
     image: "/service-asbestos.jpg"
   },
   {
     title: "Class & Statutory Surveys",
+    link: "/services/class-surveys",
     desc: "Comprehensive vessel inspections and surveys to meet rigorous industry standards.",
     icon: <Anchor size={28} />,
     image: "/service-survey.jpg"
   },
   {
     title: "Ballast Water Treatment",
+    link: "/services", 
     desc: "Innovative solutions for environmental compliance and marine ecosystem protection.",
     icon: <Recycle size={28} />,
     image: "/service-ballast.jpg"
   },
   {
     title: "Maritime Digitalization",
+    link: "/services", 
     desc: "Cutting-edge digital solutions to optimize vessel operations and efficiency.",
     icon: <Wifi size={28} />,
     image: "/service-digital.jpg"
   },
   {
     title: "Worldwide Vessel Inspections",
+    link: "/services", 
     desc: "Global reach with a team of Master Mariners and Engineers ready to deploy anywhere.",
     icon: <Globe size={28} />,
     image: "/service-inspection.jpg"
   }
 ];
 
+// --- THIS WAS LIKELY MISSING ---
 const Home = () => {
   return (
     <>
       {/* 1. HERO SECTION */}
       <div className="relative py-24 sm:py-32 bg-gray-900 overflow-hidden min-h-[600px] flex items-center">
-        <div className="absolute inset-0">
-          <img src="/hero.png" alt="Main Banner" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 w-full h-full">
+          <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+            <source src="/ocean.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-marine-900/40 mix-blend-multiply"></div>
         </div>
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-6 drop-shadow-2xl">
             Navigating Compliance. <span className="text-brand-teal block sm:inline">Securing Safety.</span>
           </h1>
           <p className="mt-4 text-lg sm:text-xl text-gray-100 max-w-3xl mx-auto font-medium drop-shadow-xl">
-            We are more than a service provider — we are your strategic ally. Empowering maritime enterprises to lead with confidence through innovative, cost-effective solutions.
+            We are more than a service provider — we are your strategic ally. Empowering maritime enterprises to lead with confidence.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#services" className="px-8 py-3 border-2 border-brand-teal text-base font-bold rounded-md text-brand-teal bg-marine-900/80 hover:bg-brand-teal hover:text-white transition shadow-xl backdrop-blur-sm">
+            <Link to="/services" className="px-8 py-3 border-2 border-brand-teal text-base font-bold rounded-md text-brand-teal bg-marine-900/80 hover:bg-brand-teal hover:text-white transition shadow-xl backdrop-blur-sm">
               View Our Services
-            </a>
-            <a href="#contact" className="px-8 py-3 border-2 border-white text-base font-bold rounded-md text-white bg-marine-900/80 hover:bg-white hover:text-marine-900 transition shadow-xl backdrop-blur-sm">
+            </Link>
+            <Link to="/contact" className="px-8 py-3 border-2 border-white text-base font-bold rounded-md text-white bg-marine-900/80 hover:bg-white hover:text-marine-900 transition shadow-xl backdrop-blur-sm">
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -87,7 +99,6 @@ const Home = () => {
               </h3>
               <div className="prose prose-lg text-gray-600 space-y-4">
                 <p>In an industry as dynamic as maritime, adaptation is key. We embrace the ever-changing nature of the sector, blending <b>traditional expertise</b> with <b>cutting-edge solutions</b>.</p>
-                <p>Our mission is simple: to empower enterprises like yours to lead with confidence. Whether navigating complex regulatory frameworks or optimizing vessel operations, we handle the intricacies of compliance so you can focus on core operations.</p>
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-brand-teal mt-6">
                   <h4 className="font-bold text-marine-900 flex items-center mb-2"><Users className="h-5 w-5 text-brand-teal mr-2" /> Our Team</h4>
                   <p className="text-sm">Backed by seasoned professionals including <b>Master Mariners, Engineers, Architects, Surveyors, Hazmat Experts, and Asbestos Consultants.</b></p>
@@ -96,11 +107,10 @@ const Home = () => {
             </div>
             <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 shadow-sm">
                <h3 className="text-2xl font-bold text-marine-900 mb-4">What is IHM?</h3>
-               <p className="text-gray-600 mb-6">At the core of our services is the <b>Inventory of Hazardous Materials (IHM)</b>. It is not just a document; it is a mandatory "health passport" for your vessel required by the <b>EU SRR</b> and <b>Hong Kong Convention</b>.</p>
+               <p className="text-gray-600 mb-6">At the core of our services is the <b>Inventory of Hazardous Materials (IHM)</b>. It is not just a document; it is a mandatory "health passport" for your vessel.</p>
                <div className="space-y-4">
                  <div className="flex items-start"><CheckCircle className="flex-shrink-0 h-6 w-6 text-brand-teal mr-3" /><div><span className="font-bold text-marine-900 block">Regulatory Compliance</span><span className="text-sm text-gray-500">Essential for entering EU ports and avoiding detention.</span></div></div>
-                 <div className="flex items-start"><CheckCircle className="flex-shrink-0 h-6 w-6 text-brand-teal mr-3" /><div><span className="font-bold text-marine-900 block">Lifecycle Maintenance</span><span className="text-sm text-gray-500">We manage the IHM throughout the ship's entire life, not just one survey.</span></div></div>
-                 <div className="flex items-start"><CheckCircle className="flex-shrink-0 h-6 w-6 text-brand-teal mr-3" /><div><span className="font-bold text-marine-900 block">Safety & Sustainability</span><span className="text-sm text-gray-500">Protecting crew health and ensuring eco-friendly recycling.</span></div></div>
+                 <div className="flex items-start"><CheckCircle className="flex-shrink-0 h-6 w-6 text-brand-teal mr-3" /><div><span className="font-bold text-marine-900 block">Lifecycle Maintenance</span><span className="text-sm text-gray-500">We manage the IHM throughout the ship's entire life.</span></div></div>
                </div>
             </div>
           </div>
@@ -124,7 +134,9 @@ const Home = () => {
                 <div className="p-8">
                   <h3 className="text-xl font-bold text-marine-900 mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-6 text-sm">{service.desc}</p>
-                  <a href="#" className="text-brand-teal font-semibold hover:text-marine-900 flex items-center text-sm">Learn more <span aria-hidden="true" className="ml-2">&rarr;</span></a>
+                  <Link to={service.link} className="text-brand-teal font-semibold hover:text-marine-900 flex items-center text-sm">
+                    Learn more <span aria-hidden="true" className="ml-2">&rarr;</span>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -132,15 +144,11 @@ const Home = () => {
         </div>
       </div>
 
-      {/* 4. CERTIFICATIONS - Updated Layout & Fonts */}
+      {/* 4. CERTIFICATIONS */}
       <div id="certifications" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-          
           <div className="text-center">
-            {/* FONT STYLE UPDATE: Uppercase, Tracking-Widest, Black (Marine-900) */}
             <h2 className="text-2xl font-bold text-marine-900 uppercase tracking-widest mb-16">Approved By Leading Class Societies</h2>
-            
-            {/* ROW OF 7 LAYOUT: Using flex-wrap for mobile but resizing to fit single row on desktop */}
             <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12 opacity-90">
                  <img src="/abs.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="ABS" />
                  <img src="/bv.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="Bureau Veritas" />
@@ -151,14 +159,9 @@ const Home = () => {
                  <img src="/classnk.jpg" className="h-20 md:h-22 mix-blend-multiply" alt="ClassNK" />
             </div>
           </div>
-
           <div className="w-full h-px bg-gray-100"></div>
-
           <div className="text-center">
-             {/* FONT STYLE UPDATE: Matching the header above */}
              <h2 className="text-2xl font-bold text-marine-900 uppercase tracking-widest mb-16">Certified Marine Consultants & Surveyors</h2>
-             
-             {/* Consultant Logos - Big & Bold */}
              <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 mt-8">
                <img src="/iamsp.png" className="h-24 md:h-32 w-auto object-contain" alt="IAMSP" />
                <img src="/mil.jpeg" className="h-24 md:h-32 w-auto object-contain" alt="Lloyds Maritime Institute" />
@@ -167,7 +170,6 @@ const Home = () => {
                <img src="/mgl.png" className="h-24 md:h-32 w-auto object-contain" alt="Maritime Group" />
              </div>
           </div>
-
         </div>
       </div>
     </>

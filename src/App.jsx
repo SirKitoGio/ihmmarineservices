@@ -1,30 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home.jsx'; 
+import ScrollToTop from './components/ScrollToTop'; // 1. Import Scroll Helper
 
-// NOTE: You can create more pages later, e.g., import HazardousMaterials from './pages/HazardousMaterials';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import Contact from './pages/Contact';
+import ServiceDetail from './pages/ServiceDetail'; // 2. Import the Detail Page
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-50 flex flex-col">
-        <Navbar />
-        
-        {/* Routes change the middle content based on the URL */}
-        <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            {/* Future pages will go here, for example: */}
-            {/* <Route path="/hazardous-materials" element={<HazardousMaterials />} /> */}
-          </Routes>
-        </div>
-
-        {/* Footer stays on bottom of every page */}
-        <Footer />
+    <div className="font-sans text-gray-900 flex flex-col min-h-screen">
+      <ScrollToTop /> {/* 3. Place it here so it runs on every page change */}
+      <Navbar />
+      
+      <div className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+          
+          {/* 4. THE MAGIC ROUTE: This handles ANY service page */}
+          <Route path="/services/:slug" element={<ServiceDetail />} />
+        </Routes>
       </div>
-    </Router>
+
+      <Footer />
+    </div>
   );
 }
 
