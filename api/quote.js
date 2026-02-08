@@ -8,55 +8,35 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. Destructure ALL the fields from your new Frontend form
     const { 
-      name, 
-      email, 
-      company, 
-      phone, 
-      vesselName, 
-      vesselType, 
-      imo, 
-      service, 
-      portLocation, 
-      urgency, 
-      message 
+      name, email, company, phone, service, message,
+      // Marine Specifics
+      vesselName, imo, grossTonnage, yearBuilt, projectScope 
     } = req.body;
 
-    // 2. Format the Email Subject based on Urgency
-    const urgencyFlag = urgency === 'urgent' ? '⚡ URGENT: ' : '';
-    const subjectLine = `${urgencyFlag}New Quote Request: ${service || 'General Service'}`;
-
-    // 3. Send the Email
     const data = await resend.emails.send({
       from: 'IHM Marine Services <onboarding@resend.dev>',
-      to: ['speirsspeirs25@gmail.com'], // Verified Receiver
+      to: ['speirsspeirs25@gmail.com'], 
       replyTo: email,
-      subject: subjectLine,
+      subject: `Quote Request: ${service}`,
       html: `
         <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px;">
           <h2 style="color: #004e64; border-bottom: 2px solid #004e64; padding-bottom: 10px;">
-            ${urgency === 'urgent' ? '⚡ ' : ''}New Quote Request
+            New Quote Request
           </h2>
           
-          <div style="background-color: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
-            <h3 style="margin-top: 0; color: #333;">🚢 Service Required</h3>
-            <p><strong>Service:</strong> ${service}</p>
-            <p><strong>Port/Location:</strong> ${portLocation || 'Not specified'}</p>
-            <p><strong>Urgency:</strong> ${urgency === 'urgent' ? '<span style="color: red; font-weight: bold;">URGENT</span>' : 'Standard'}</p>
+          <div style="background-color: #f0f7ff; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; color: #004e64;">🚢 Service: ${service}</h3>
+            
+            ${/* Only show these if they exist */ ''}
+            ${vesselName ? `<p><strong>Vessel:</strong> ${vesselName} (IMO: ${imo || 'N/A'})</p>` : ''}
+            ${grossTonnage ? `<p><strong>Gross Tonnage:</strong> ${grossTonnage}</p>` : ''}
+            ${yearBuilt ? `<p><strong>Year Built:</strong> ${yearBuilt}</p>` : ''}
+            ${projectScope ? `<p><strong>Problem Scope:</strong><br/>${projectScope}</p>` : ''}
           </div>
 
           <div style="margin-bottom: 20px;">
-            <h3 style="color: #333;">📋 Vessel Details</h3>
-            <ul style="list-style: none; padding: 0;">
-              <li><strong>Name:</strong> ${vesselName || 'N/A'}</li>
-              <li><strong>Type:</strong> ${vesselType || 'N/A'}</li>
-              <li><strong>IMO Number:</strong> ${imo || 'N/A'}</li>
-            </ul>
-          </div>
-
-          <div style="margin-bottom: 20px;">
-            <h3 style="color: #333;">👤 Contact Information</h3>
+            <h3 style="color: #333;">👤 Client Details</h3>
             <ul style="list-style: none; padding: 0;">
               <li><strong>Name:</strong> ${name}</li>
               <li><strong>Email:</strong> <a href="mailto:${email}">${email}</a></li>
@@ -66,16 +46,14 @@ export default async function handler(req, res) {
           </div>
 
           <hr style="border: 0; border-top: 1px solid #eee;" />
-          
-          <h3>📝 Additional Message</h3>
-          <p style="white-space: pre-wrap; background: #fff; border: 1px solid #ddd; padding: 10px; border-radius: 4px;">${message || 'No additional details provided.'}</p>
+          <p><strong>Additional Message:</strong></p>
+          <p>${message || 'No additional message.'}</p>
         </div>
       `,
     });
 
     return res.status(200).json({ success: true, id: data.id });
   } catch (error) {
-    console.error('API Error:', error);
     return res.status(500).json({ error: 'Failed to send quote' });
   }
 }
