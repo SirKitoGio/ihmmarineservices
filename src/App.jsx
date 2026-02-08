@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
 import ServiceDetail from './pages/ServiceDetail'; 
-import Quote from './pages/Quote';
+import Quote from './pages/Quote'; // ✅ You already have this imported
 
 function App() {
   return (
@@ -22,6 +22,9 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           
+          {/* 👇 THIS WAS MISSING! Add this line so the page works 👇 */}
+          <Route path="/quote" element={<Quote />} />
+
           <Route path="/services/:slug" element={<ServiceDetail />} />
         </Routes>
       </div>

@@ -59,7 +59,7 @@ const Navbar = () => {
               <img
                 src="/logo.png"
                 alt="IHM Marine Services"
-                className="h-12 md:h-16 w-auto object-contain py-1 transition-all duration-300 ease-in-out"
+                className="h-12 md:h-28 w-auto object-contain py-1 transition-all duration-300 ease-in-out"
               />
             </Link>
           </div>
