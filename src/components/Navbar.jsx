@@ -116,13 +116,12 @@ const Navbar = () => {
               Contact
             </Link>
 
-            <a
-              href="mailto:info@ihmmarineservices.com"
-              className="bg-marine-900 hover:bg-marine-800 text-white px-8 py-3 lg:px-10 lg:py-4 rounded-lg font-bold text-xl lg:text-1xl transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border-2 border-marine-900"
-            >
-              Get a Quote
-            </a>
-          </div>
+            <Link 
+  to="/quote" 
+  className="bg-marine-900 text-white px-5 py-2 rounded hover:bg-brand-teal transition"
+>
+  Get a Quote
+</Link>
 
           {/* MOBILE MENU BUTTON (Visible only on Mobile) */}
           <div className="md:hidden flex items-center">
@@ -130,6 +129,7 @@ const Navbar = () => {
               {isOpen ? <X size={32} /> : <Menu size={32} />}
             </button>
           </div>
+
         </div>
       </div>
 

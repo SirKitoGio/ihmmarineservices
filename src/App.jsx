@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
 import ServiceDetail from './pages/ServiceDetail'; 
+import Quote from './pages/Quote';
 
 function App() {
   return (
