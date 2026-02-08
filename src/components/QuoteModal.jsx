@@ -54,12 +54,12 @@ const QuoteModal = ({ isOpen, onClose }) => {
 
         try {
             const response = await fetch('/api/quote', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json', // <--- THIS LINE IS MANDATORY
+  },
+  body: JSON.stringify(formData),
+});
 
             if (response.ok) {
                 setSubmitStatus('success');
