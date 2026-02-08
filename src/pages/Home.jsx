@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  ClipboardCheck, 
-  Biohazard, 
-  Recycle, 
-  Ship, 
+import Hero from '../components/Hero';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import {
+  ClipboardCheck,
+  Biohazard,
+  Recycle,
+  Ship,
   CheckCircle,
   Anchor,
   Globe,
@@ -36,28 +38,27 @@ const services = [
   },
   {
     title: "Ballast Water Treatment",
-    link: "/services", 
+    link: "/services",
     desc: "Innovative solutions for environmental compliance and marine ecosystem protection.",
     icon: <Recycle size={28} />,
     image: "/service-ballast.jpg"
   },
   {
     title: "Maritime Digitalization",
-    link: "/services", 
+    link: "/services",
     desc: "Cutting-edge digital solutions to optimize vessel operations and efficiency.",
     icon: <Wifi size={28} />,
     image: "/service-digital.jpg"
   },
   {
     title: "Worldwide Vessel Inspections",
-    link: "/services", 
+    link: "/services",
     desc: "Global reach with a team of Master Mariners and Engineers ready to deploy anywhere.",
     icon: <Globe size={28} />,
     image: "/service-inspection.jpg"
   }
 ];
 
-// --- THIS WAS LIKELY MISSING ---
 const Home = () => {
   return (
     <>
@@ -106,12 +107,12 @@ const Home = () => {
               </div>
             </div>
             <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 shadow-sm">
-               <h3 className="text-2xl font-bold text-marine-900 mb-4">What is IHM?</h3>
-               <p className="text-gray-600 mb-6">At the core of our services is the <b>Inventory of Hazardous Materials (IHM)</b>. It is not just a document; it is a mandatory "health passport" for your vessel.</p>
-               <div className="space-y-4">
-                 <div className="flex items-start"><CheckCircle className="flex-shrink-0 h-6 w-6 text-brand-teal mr-3" /><div><span className="font-bold text-marine-900 block">Regulatory Compliance</span><span className="text-sm text-gray-500">Essential for entering EU ports and avoiding detention.</span></div></div>
-                 <div className="flex items-start"><CheckCircle className="flex-shrink-0 h-6 w-6 text-brand-teal mr-3" /><div><span className="font-bold text-marine-900 block">Lifecycle Maintenance</span><span className="text-sm text-gray-500">We manage the IHM throughout the ship's entire life.</span></div></div>
-               </div>
+              <h3 className="text-2xl font-bold text-marine-900 mb-4">What is IHM?</h3>
+              <p className="text-gray-600 mb-6">At the core of our services is the <b>Inventory of Hazardous Materials (IHM)</b>. It is not just a document; it is a mandatory "health passport" for your vessel.</p>
+              <div className="space-y-4">
+                <div className="flex items-start"><CheckCircle className="flex-shrink-0 h-6 w-6 text-brand-teal mr-3" /><div><span className="font-bold text-marine-900 block">Regulatory Compliance</span><span className="text-sm text-gray-500">Essential for entering EU ports and avoiding detention.</span></div></div>
+                <div className="flex items-start"><CheckCircle className="flex-shrink-0 h-6 w-6 text-brand-teal mr-3" /><div><span className="font-bold text-marine-900 block">Lifecycle Maintenance</span><span className="text-sm text-gray-500">We manage the IHM throughout the ship's entire life.</span></div></div>
+              </div>
             </div>
           </div>
         </div>
@@ -125,21 +126,36 @@ const Home = () => {
             <p className="mt-4 text-gray-600">From vessel maintenance to digital optimization, we provide timely and cost-effective answers to your challenges.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
-                <div className="relative h-48 overflow-hidden">
-                  <img src={service.image} alt={service.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
-                  <div className="absolute top-4 left-4 bg-white/90 p-3 rounded-full shadow-sm"><div className="text-brand-teal">{service.icon}</div></div>
-                </div>
-                <div className="p-8">
-                  <h3 className="text-xl font-bold text-marine-900 mb-3">{service.title}</h3>
-                  <p className="text-gray-600 mb-6 text-sm">{service.desc}</p>
-                  <Link to={service.link} className="text-brand-teal font-semibold hover:text-marine-900 flex items-center text-sm">
-                    Learn more <span aria-hidden="true" className="ml-2">&rarr;</span>
-                  </Link>
-                </div>
-              </div>
-            ))}
+            {services.map((service, index) => {
+              // Create a component for each service card with its own animation hook
+              const ServiceCard = () => {
+                const { ref, isVisible } = useScrollAnimation(0.1, index * 100);
+
+                return (
+                  <div
+                    ref={ref}
+                    className={`bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-700 group ${isVisible
+                        ? 'opacity-100 translate-y-0'
+                        : 'opacity-0 translate-y-10'
+                      }`}
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      <img src={service.image} alt={service.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                      <div className="absolute top-4 left-4 bg-white/90 p-3 rounded-full shadow-sm"><div className="text-brand-teal">{service.icon}</div></div>
+                    </div>
+                    <div className="p-8">
+                      <h3 className="text-xl font-bold text-marine-900 mb-3">{service.title}</h3>
+                      <p className="text-gray-600 mb-6 text-sm">{service.desc}</p>
+                      <Link to={service.link} className="text-brand-teal font-semibold hover:text-marine-900 flex items-center text-sm">
+                        Learn more <span aria-hidden="true" className="ml-2">&rarr;</span>
+                      </Link>
+                    </div>
+                  </div>
+                );
+              };
+
+              return <ServiceCard key={index} />;
+            })}
           </div>
         </div>
       </div>
@@ -150,25 +166,25 @@ const Home = () => {
           <div className="text-center">
             <h2 className="text-2xl font-bold text-marine-900 uppercase tracking-widest mb-16">Approved By Leading Class Societies</h2>
             <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12 opacity-90">
-                 <img src="/abs.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="ABS" />
-                 <img src="/bv.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="Bureau Veritas" />
-                 <img src="/dnv.jpg" className="h-20 md:h-22 mix-blend-multiply" alt="DNV" />
-                 <img src="/kr.jpg" className="h-20 md:h-22 mix-blend-multiply" alt="Korean Register" />
-                 <img src="/lr.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="Lloyds Register" />
-                 <img src="/rina.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="RINA" />
-                 <img src="/classnk.jpg" className="h-20 md:h-22 mix-blend-multiply" alt="ClassNK" />
+              <img src="/abs.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="ABS" />
+              <img src="/bv.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="Bureau Veritas" />
+              <img src="/dnv.jpg" className="h-20 md:h-22 mix-blend-multiply" alt="DNV" />
+              <img src="/kr.jpg" className="h-20 md:h-22 mix-blend-multiply" alt="Korean Register" />
+              <img src="/lr.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="Lloyds Register" />
+              <img src="/rina.jpg" className="h-24 md:h-26 mix-blend-multiply" alt="RINA" />
+              <img src="/classnk.jpg" className="h-20 md:h-22 mix-blend-multiply" alt="ClassNK" />
             </div>
           </div>
           <div className="w-full h-px bg-gray-100"></div>
           <div className="text-center">
-             <h2 className="text-2xl font-bold text-marine-900 uppercase tracking-widest mb-16">Certified Marine Consultants & Surveyors</h2>
-             <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 mt-8">
-               <img src="/iamsp.png" className="h-24 md:h-32 w-auto object-contain" alt="IAMSP" />
-               <img src="/mil.jpeg" className="h-24 md:h-32 w-auto object-contain" alt="Lloyds Maritime Institute" />
-               <img src="/spni.png" className="h-20 md:h-28 w-auto object-contain" alt="SPNI" />
-               <img src="/icc.jpeg" className="h-20 md:h-28 w-auto object-contain" alt="ICC" />
-               <img src="/mgl.png" className="h-24 md:h-32 w-auto object-contain" alt="Maritime Group" />
-             </div>
+            <h2 className="text-2xl font-bold text-marine-900 uppercase tracking-widest mb-16">Certified Marine Consultants & Surveyors</h2>
+            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 mt-8">
+              <img src="/iamsp.png" className="h-24 md:h-32 w-auto object-contain" alt="IAMSP" />
+              <img src="/mil.jpeg" className="h-24 md:h-32 w-auto object-contain" alt="Lloyds Maritime Institute" />
+              <img src="/spni.png" className="h-20 md:h-28 w-auto object-contain" alt="SPNI" />
+              <img src="/icc.jpeg" className="h-20 md:h-28 w-auto object-contain" alt="ICC" />
+              <img src="/mgl.png" className="h-24 md:h-32 w-auto object-contain" alt="Maritime Group" />
+            </div>
           </div>
         </div>
       </div>

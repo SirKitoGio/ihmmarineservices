@@ -2,17 +2,18 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop'; // 1. Import Scroll Helper
+import ScrollToTop from './components/ScrollToTop'; 
 
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
-import ServiceDetail from './pages/ServiceDetail'; // 2. Import the Detail Page
+import ServiceDetail from './pages/ServiceDetail'; 
+import Hero from './components/Hero';
 
 function App() {
   return (
     <div className="font-sans text-gray-900 flex flex-col min-h-screen">
-      <ScrollToTop /> {/* 3. Place it here so it runs on every page change */}
+      <ScrollToTop /> 
       <Navbar />
       
       <div className="flex-grow">
@@ -21,7 +22,6 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           
-          {/* 4. THE MAGIC ROUTE: This handles ANY service page */}
           <Route path="/services/:slug" element={<ServiceDetail />} />
         </Routes>
       </div>
