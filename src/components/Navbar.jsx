@@ -9,12 +9,10 @@ import {
   Grid
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import QuoteModal from './QuoteModal';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
-  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   // --- HELPER: FORCE SCROLL TO TOP ---
   const scrollToTop = () => {
@@ -51,9 +49,9 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50 font-sans">
-      <div className="w-full px-4 sm:px-6 lg:px-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
 
-        <div className="flex justify-between items-center h-20 md:h-45 transition-all duration-300 ease-in-out">
+        <div className="flex justify-between items-center h-20 md:h-24 transition-all duration-300 ease-in-out">
 
           {/* LOGO SECTION */}
           <div className="flex items-center flex-shrink-0">
@@ -61,46 +59,47 @@ const Navbar = () => {
               <img
                 src="/logo.png"
                 alt="IHM Marine Services"
-                className="h-14 md:h-35 w-auto object-contain py-1 transition-all duration-300 ease-in-out"
+                className="h-12 md:h-16 w-auto object-contain py-1 transition-all duration-300 ease-in-out"
               />
             </Link>
           </div>
 
           {/* DESKTOP MENU (Hidden on Mobile) */}
-          <div className="hidden md:flex items-center space-x-8 lg:space-x-14">
+          <div className="hidden md:flex items-center space-x-8 lg:space-x-10">
 
             <Link
               to="/"
               onClick={scrollToTop}
-              className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-1xl transition"
+              className="text-marine-900 hover:text-brand-teal font-extrabold text-lg transition"
             >
               Home
             </Link>
 
             {/* SERVICES DROPDOWN */}
             <div className="relative group h-full flex items-center">
-              <button className="flex items-center text-marine-900 group-hover:text-brand-teal font-extrabold text-xl lg:text-1xl transition focus:outline-none">
+              <button className="flex items-center text-marine-900 group-hover:text-brand-teal font-extrabold text-lg transition focus:outline-none py-6">
                 Services
-                <ChevronDown size={24} className="ml-2 transform group-hover:-rotate-180 transition-transform duration-200" />
+                <ChevronDown size={20} className="ml-1 transform group-hover:-rotate-180 transition-transform duration-200" />
               </button>
 
-              <div className="absolute top-28 -left-8 w-[450px] bg-white shadow-2xl rounded-lg py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-4 border-t-8 border-brand-teal">
+              {/* Dropdown Menu */}
+              <div className="absolute top-full -left-12 w-[400px] bg-white shadow-xl rounded-b-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border-t-4 border-brand-teal">
                 <div className="flex flex-col">
                   {servicesList.map((service, index) => (
                     <Link
                       key={index}
                       to={service.link}
                       onClick={scrollToTop}
-                      className={`flex items-start px-6 py-5 hover:bg-teal-50 transition group/item ${index !== servicesList.length - 1 ? 'border-b border-gray-100' : ''}`}
+                      className="flex items-start px-6 py-4 hover:bg-gray-50 transition border-b border-gray-100 last:border-0"
                     >
-                      <div className="text-gray-400 group-hover/item:text-brand-teal mr-5 mt-1 transition-colors">
+                      <div className="text-gray-400 mr-4 mt-1">
                         {service.icon}
                       </div>
                       <div>
-                        <span className="block text-lg font-bold text-marine-900 group-hover/item:text-brand-teal transition-colors">
+                        <span className="block text-base font-bold text-marine-900">
                           {service.name}
                         </span>
-                        <span className="text-sm text-gray-500">{service.desc}</span>
+                        <span className="text-xs text-gray-500">{service.desc}</span>
                       </div>
                     </Link>
                   ))}
@@ -111,17 +110,21 @@ const Navbar = () => {
             <Link
               to="/contact"
               onClick={scrollToTop}
-              className="text-marine-900 hover:text-brand-teal font-extrabold text-xl lg:text-1xl transition"
+              className="text-marine-900 hover:text-brand-teal font-extrabold text-lg transition"
             >
               Contact
             </Link>
 
+            {/* BUTTON: NOW LINKS TO PAGE */}
             <Link 
-  to="/quote" 
-  className="bg-marine-900 text-white px-5 py-2 rounded hover:bg-brand-teal transition"
->
-  Get a Quote
-</Link>
+              to="/quote" 
+              onClick={scrollToTop}
+              className="bg-marine-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-brand-teal transition shadow-md"
+            >
+              Get a Quote
+            </Link>
+
+          </div>
 
           {/* MOBILE MENU BUTTON (Visible only on Mobile) */}
           <div className="md:hidden flex items-center">
@@ -135,7 +138,7 @@ const Navbar = () => {
 
       {/* MOBILE MENU DROPDOWN */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-2xl absolute w-full left-0 h-[calc(100vh-5rem)] bg-opacity-100 overflow-y-auto pb-20 z-40">
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-2xl absolute w-full left-0 h-[calc(100vh-5rem)] overflow-y-auto pb-20 z-40">
           <div className="px-6 pt-6 pb-8 space-y-4">
 
             <Link
@@ -181,20 +184,19 @@ const Navbar = () => {
             </Link>
 
             <div className="pt-6">
-              <button
-                onClick={() => { setIsQuoteModalOpen(true); setIsOpen(false); }}
-                className="block w-full text-center bg-marine-900 text-white px-6 py-5 rounded-lg font-bold text-xl shadow-lg"
+              {/* MOBILE BUTTON: NOW LINKS TO PAGE */}
+              <Link
+                to="/quote"
+                onClick={scrollToTop}
+                className="block w-full text-center bg-marine-900 text-white px-6 py-5 rounded-lg font-bold text-xl shadow-lg hover:bg-brand-teal transition"
               >
                 Get a Quote
-              </button>
+              </Link>
             </div>
 
           </div>
         </div>
       )}
-
-      {/* Quote Modal */}
-      <QuoteModal isOpen={isQuoteModalOpen} onClose={() => setIsQuoteModalOpen(false)} />
     </nav>
   );
 };
